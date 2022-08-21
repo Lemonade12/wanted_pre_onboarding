@@ -8,8 +8,11 @@ async function readApplyLog(opening_id, user_id){
         where: {
             opening_id: opening_id,
             user_id: user_id,
-        }
+        },
+        attributes: ['id', 'user_id', 'opening_id'],
+        raw: true,
     })
+    console.log(data);
     return data;
 }
 
