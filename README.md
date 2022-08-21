@@ -1,6 +1,6 @@
 # wanted_pre_onboarding
 
-Node.js / postgreSQL
+Node.js / Sequelize / postgreSQL
 
 1. 채용공고 등록
 job_opening table 에 채용공고를 create
