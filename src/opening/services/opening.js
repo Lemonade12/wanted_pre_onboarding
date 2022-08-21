@@ -4,7 +4,7 @@ async function createOpening(req, res) {
     try {
       const { company_id, position, compensation, content, skill } = req.query;
       openingRepo.createOpening(company_id, position, compensation, content, skill);
-      return res.status(200).json({ message : 'OPENING IS CREATED' });
+      return res.status(201).json({ message : 'OPENING IS CREATED' });
     } catch (err) {
       console.log(err);
       return res.status(err.statusCode || 500).json({ message: err.message });
@@ -28,8 +28,14 @@ async function updateOpening(req, res) {
 async function deleteOpening(req, res) {
   try {
     const opening_id = req.params.id;
-    openingRepo.deleteOpening(opening_id);
-    return res.status(200).json({ message : 'OPENING IS DELETED' });
+    const opening = await openingRepo.readOpeningById(opening_id);
+    if(opening){
+      openingRepo.deleteOpening(opening_id);
+      return res.status(200).json({ message : 'OPENING IS DELETED' });
+    }
+    else{
+      return res.status(404).json({ message : 'OPENING IS NOT FOUND' });
+    }
   } catch (err) {
     console.log(err);
     return res.status(err.statusCode || 500).json({ message: err.message });

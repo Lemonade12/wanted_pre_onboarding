@@ -29,7 +29,6 @@ async function deleteOpening(opening_id){
 }
 
 async function readOpening(){
-    console.log('aa');
     const data = await Opening.findAll({
         attributes : [
             ['id', '채용공고_id'],
@@ -45,6 +44,15 @@ async function readOpening(){
             as: 'company',
             attributes: [],
         }],
+    })
+    return data;
+}
+
+async function readOpeningById(opening_id){
+    const data = await Opening.findOne({
+        where:{
+            id: opening_id,
+        }
     })
     return data;
 }
@@ -102,4 +110,4 @@ async function readOpeningByCompanyId(company_id, opening_id){
     return data;
 }
 
-module.exports = { createOpening, updateOpening, deleteOpening, readOpening, readOpeningBySearch, readOpeningDetail, readOpeningByCompanyId };
+module.exports = { createOpening, updateOpening, deleteOpening, readOpening, readOpeningById, readOpeningBySearch, readOpeningDetail, readOpeningByCompanyId };
