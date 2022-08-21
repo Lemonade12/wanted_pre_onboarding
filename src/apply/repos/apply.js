@@ -14,7 +14,6 @@ async function readApplyLog(opening_id, user_id){
 }
 
 async function createApply(opening_id, user_id){
-    console.log('bbb');
     const apply = {
         opening_id: opening_id,
         user_id: user_id,

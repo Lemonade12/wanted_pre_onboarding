@@ -5,7 +5,6 @@ const Company = db.company;
 const Op = sequelize.Op;
 
 async function createOpening(company_id, position, compensation, content, skill){
-    console.log(content);
     const opening = {
         company_id: company_id,
         position: position,
@@ -44,6 +43,9 @@ async function readOpening(){
             as: 'company',
             attributes: [],
         }],
+        order:[
+            ['id','ASC'],
+        ],
     })
     return data;
 }
@@ -58,7 +60,6 @@ async function readOpeningById(opening_id){
 }
 
 async function readOpeningBySearch(search){
-    console.log(search);
     const data = await Opening.findAll({
         attributes : [
             ['id', '채용공고_id'],
@@ -77,6 +78,9 @@ async function readOpeningBySearch(search){
                 name: { [Op.like]: '%' + search + '%' },
             },
         }],
+        order:[
+            ['id','ASC'],
+        ],
     })
     return data;
 }
@@ -93,7 +97,6 @@ async function readOpeningDetail(opening_id){
             attributes: ['id','name','country','region'],
         }],
     })
-    console.log(data);
     return data;
 }
 
@@ -104,9 +107,10 @@ async function readOpeningByCompanyId(company_id, opening_id){
             company_id: company_id,
             id: {[Op.not] : opening_id},
         },
-        raw: true,
+        order:[
+            ['id','ASC'],
+        ],
     })
-    console.log(data);
     return data;
 }
 
