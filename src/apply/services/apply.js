@@ -6,7 +6,7 @@ async function applyOpening(req, res){
       const user_id = req.body.user_id;
       const data = await applyRepo.readApplyLog(opening_id, user_id);
       if(data){
-        return res.status(200).json({ message : 'APPLY IS ALREADY EXISTED' });
+        return res.status(409).json({ message : 'APPLY IS ALREADY EXISTED' });
       }else{
         applyRepo.createApply(opening_id, user_id);
         return res.status(200).json({ message : 'APPLY COMPLETED' });
