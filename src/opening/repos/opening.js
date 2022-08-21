@@ -29,14 +29,22 @@ async function deleteOpening(opening_id){
 }
 
 async function readOpening(){
+    console.log('aa');
     const data = await Opening.findAll({
-        attributes : ['id','position','compensation','skill'],
+        attributes : [
+            ['id', '채용공고_id'],
+            [sequelize.col('company.name'),'회사명'],
+            [sequelize.col('company.country'),'국가'],
+            [sequelize.col('company.region'),'지역'],
+            ['position', '채용포지션'],
+            ['compensation', '채용보상금'],
+            ['skill', '사용기술']
+        ],
         include:[{
             model: Company,
             as: 'company',
-            attributes: ['name','country','region'],
+            attributes: [],
         }],
-        
     })
     return data;
 }
@@ -44,11 +52,19 @@ async function readOpening(){
 async function readOpeningBySearch(search){
     console.log(search);
     const data = await Opening.findAll({
-        attributes : ['id','position','compensation','skill'],
+        attributes : [
+            ['id', '채용공고_id'],
+            [sequelize.col('company.name'),'회사명'],
+            [sequelize.col('company.country'),'국가'],
+            [sequelize.col('company.region'),'지역'],
+            ['position', '채용포지션'],
+            ['compensation', '채용보상금'],
+            ['skill', '사용기술']
+        ],
         include:[{
             model: Company,
             as: 'company',
-            attributes: ['name','country','region'],
+            attributes: [],
             where: {
                 name: { [Op.like]: '%' + search + '%' },
             },
