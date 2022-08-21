@@ -41,7 +41,6 @@ async function readOpening(req, res) {
     const { search } = req.query;
     let data;
     if(search == undefined){
-      console.log('aaaa');
       data = await openingRepo.readOpening();
     }
     else{
@@ -70,7 +69,6 @@ async function readOpeningDetail(req, res) {
       '사용기술': detail.skill,
       '채용내용': detail.content,
       '회사가올린다른채용공고': list,
-
     }
     
     return res.status(200).json(data);
@@ -80,16 +78,6 @@ async function readOpeningDetail(req, res) {
   }
 }
 
-async function applyOpening(req, res){
-  try {
-    const opening_id = req.params.id;
-    const user_id = req.body;
-    openingRepo.deleteOpening(opening_id);
-    return res.status(200).json({ message : 'OPENING IS DELETED' });
-  } catch (err) {
-    console.log(err);
-    return res.status(err.statusCode || 500).json({ message: err.message });
-  }
-}
+
 
 module.exports = { createOpening, updateOpening, deleteOpening, readOpening, readOpeningDetail };
