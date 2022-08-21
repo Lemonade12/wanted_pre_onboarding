@@ -58,6 +58,7 @@ async function readOpeningDetail(req, res) {
     const opening_id = req.params.id;
     const detail = await openingRepo.readOpeningDetail(opening_id);
     const list = await openingRepo.readOpeningByCompanyId(detail.company.id, opening_id);
+    let arr = list.map(a=>a.id);
     //해당 채용공고 id는 빠져야한다
     const data = {
       '채용공고_id': detail.id,
@@ -68,7 +69,7 @@ async function readOpeningDetail(req, res) {
       '채용보상금': detail.compensation,
       '사용기술': detail.skill,
       '채용내용': detail.content,
-      '회사가올린다른채용공고': list,
+      '회사가올린다른채용공고': arr,
     }
     
     return res.status(200).json(data);

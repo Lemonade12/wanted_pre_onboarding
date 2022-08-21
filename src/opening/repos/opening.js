@@ -84,8 +84,8 @@ async function readOpeningDetail(opening_id){
             as: 'company',
             attributes: ['id','name','country','region'],
         }],
-        
     })
+    console.log(data);
     return data;
 }
 
@@ -96,7 +96,9 @@ async function readOpeningByCompanyId(company_id, opening_id){
             company_id: company_id,
             id: {[Op.not] : opening_id},
         },
+        raw: true,
     })
+    console.log(data);
     return data;
 }
 
