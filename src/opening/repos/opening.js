@@ -74,10 +74,22 @@ async function readOpeningBySearch(search){
             model: Company,
             as: 'company',
             attributes: [],
-            where: {
-                name: { [Op.like]: '%' + search + '%' },
-            },
+            
         }],
+        where:{
+            [Op.or]: [
+                {
+                    '$company.name$': {
+                        [Op.like]: "%" + search + "%"
+                    }
+                },
+                {
+                    skill: {
+                        [Op.like]: "%" + search + "%"
+                    }
+                }
+            ]
+        },
         order:[
             ['id','ASC'],
         ],
