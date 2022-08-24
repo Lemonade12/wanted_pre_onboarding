@@ -3,8 +3,15 @@ const openingRepo = require('../repos/opening');
 async function createOpening(req, res) {
     try {
       const { company_id, position, compensation, content, skill } = req.body;
-      openingRepo.createOpening(company_id, position, compensation, content, skill);
-      return res.status(201).json({ message : 'OPENING IS CREATED' });
+      const isExistedCompany = await openingRepo.readCompanyById(company_id);
+      if(isExistedCompany){
+        openingRepo.createOpening(company_id, position, compensation, content, skill);
+        return res.status(201).json({ message : 'OPENING IS CREATED' });
+      }
+      else{
+        return res.status(404).json({ message : 'COMPANY IS NOT FOUND' });
+      }
+      
     } catch (err) {
       console.log(err);
       return res.status(err.statusCode || 500).json({ message: err.message });

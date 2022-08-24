@@ -4,6 +4,13 @@ const Opening = db.job_opening;
 const Company = db.company;
 const Op = sequelize.Op;
 
+async function readCompanyById(company_id){
+    const data = await Company.findOne({
+        where : {id: company_id},
+    })
+    return data;
+}
+
 async function createOpening(company_id, position, compensation, content, skill){
     const opening = {
         company_id: company_id,
@@ -126,4 +133,4 @@ async function readOpeningByCompanyId(company_id, opening_id){
     return data;
 }
 
-module.exports = { createOpening, updateOpening, deleteOpening, readOpening, readOpeningById, readOpeningBySearch, readOpeningDetail, readOpeningByCompanyId };
+module.exports = { readCompanyById, createOpening, updateOpening, deleteOpening, readOpening, readOpeningById, readOpeningBySearch, readOpeningDetail, readOpeningByCompanyId };
